@@ -39,6 +39,21 @@ class _FeedState extends State<Feed> {
                     'assets/appbartop.png',
                   ),
                 ),
+                Positioned(
+                  right: 0,
+                  top: 7,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(0),
+                    color: Colors.black.withOpacity(0),
+                    elevation: 0,
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 35,
+                    ),
+                  ),
+                ),
               ],
             ),
           )

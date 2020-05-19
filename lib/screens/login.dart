@@ -95,6 +95,9 @@ class _LoginState extends State<Login> {
                                       if (_formKey.currentState.validate()) {
                                         print(email);
                                         print(password);
+                                        Navigator.of(context).pushNamed(
+                                          '/feed',
+                                        );
                                       }
                                     },
                                     color: const Color(0xffB513A4),
