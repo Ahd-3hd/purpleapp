@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -10,7 +9,6 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 5),
@@ -146,7 +144,9 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
               child: RaisedButton(
                 color: const Color(0xffB513A4),
                 onPressed: () {
-                  print('hh');
+                  Navigator.of(context).pushNamed(
+                    '/loginorsignup',
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),

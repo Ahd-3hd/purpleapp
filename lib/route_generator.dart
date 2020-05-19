@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/screens/login_signup.dart';
 import 'package:purple/screens/welcome.dart';
 
 class RouteGenerator {
@@ -9,6 +10,11 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => Welcome());
+      case '/loginorsignup':
+        // Validation of correct data type
+        return MaterialPageRoute(
+          builder: (_) => LoginOrSignup(),
+        );
       default:
         return _errorRoute();
     }
