@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:purple/screens/login.dart';
 import 'package:purple/screens/login_signup.dart';
+import 'package:purple/screens/signup.dart';
 import 'package:purple/screens/welcome.dart';
 
 class RouteGenerator {
@@ -18,6 +19,10 @@ class RouteGenerator {
       case '/login':
         return MaterialPageRoute(
           builder: (_) => Login(),
+        );
+      case '/signup':
+        return MaterialPageRoute(
+          builder: (_) => Signup(),
         );
       default:
         return _errorRoute();

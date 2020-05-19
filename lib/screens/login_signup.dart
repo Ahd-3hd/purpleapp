@@ -55,7 +55,9 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
                           children: <Widget>[
                             RaisedButton(
                               onPressed: () {
-                                print('hh');
+                                Navigator.of(context).pushNamed(
+                                  '/login',
+                                );
                               },
                               color: const Color(0xffB513A4),
                               child: Text(
@@ -72,7 +74,9 @@ class _LoginOrSignupState extends State<LoginOrSignup> {
                             ),
                             RaisedButton(
                               onPressed: () {
-                                print('hh');
+                                Navigator.of(context).pushNamed(
+                                  '/signup',
+                                );
                               },
                               color: const Color(0xffB513A4),
                               child: Text(
