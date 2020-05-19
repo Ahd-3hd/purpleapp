@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/screens/feed.dart';
 import 'package:purple/screens/login.dart';
 import 'package:purple/screens/login_signup.dart';
 import 'package:purple/screens/signup.dart';
@@ -23,6 +24,10 @@ class RouteGenerator {
       case '/signup':
         return MaterialPageRoute(
           builder: (_) => Signup(),
+        );
+      case '/feed':
+        return MaterialPageRoute(
+          builder: (_) => Feed(),
         );
       default:
         return _errorRoute();

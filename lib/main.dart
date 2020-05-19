@@ -9,7 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MaterialApp(
-      initialRoute: '/signup',
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/feed',
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
