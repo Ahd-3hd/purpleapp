@@ -28,6 +28,17 @@ class _WelcomeState extends State<Welcome> {
             ),
           ),
           Align(
+            alignment: Alignment.topRight,
+            child: Transform.translate(
+              offset: Offset(0.0, 20.0),
+              child: Image.asset(
+                'assets/toprightvector.png',
+                fit: BoxFit.fitHeight,
+                height: 250,
+              ),
+            ),
+          ),
+          Align(
             alignment: Alignment.bottomLeft,
             child: Transform.translate(
               offset: Offset(-150.0, 100.0),
