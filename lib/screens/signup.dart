@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/services/auth.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -6,10 +7,13 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final AuthService _auth = AuthService();
+
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
   String repeatPassword = '';
+  String error;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -113,10 +117,21 @@ class _SignupState extends State<Signup> {
                                     ),
                                   ),
                                   RaisedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (_formKey.currentState.validate()) {
-                                        print(email);
-                                        print(password);
+                                        dynamic result = await _auth
+                                            .registerWithEmailAndPassword(
+                                                email, password);
+                                        if (result == null) {
+                                          setState(() {
+                                            error = 'Invalid Credentials';
+                                          });
+                                          print(error);
+                                        } else {
+                                          Navigator.of(context).pushNamed(
+                                              '/login',
+                                              arguments: result.uid);
+                                        }
                                       }
                                     },
                                     color: const Color(0xffB513A4),

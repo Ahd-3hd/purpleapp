@@ -7,12 +7,12 @@ import 'package:purple/screens/profile.dart';
 import 'package:purple/screens/signup.dart';
 import 'package:purple/screens/user_posts.dart';
 import 'package:purple/screens/welcome.dart';
+import 'package:purple/services/auth.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
-
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => Welcome());
@@ -29,9 +29,18 @@ class RouteGenerator {
           builder: (_) => Signup(),
         );
       case '/feed':
-        return MaterialPageRoute(
-          builder: (_) => Feed(),
-        );
+        print(args);
+        if (args != null) {
+          return MaterialPageRoute(
+            builder: (_) => Feed(),
+          );
+        } else {
+          print(AuthService().user);
+          return MaterialPageRoute(
+            builder: (_) => Login(),
+          );
+        }
+        break;
       case '/single':
         return MaterialPageRoute(
           builder: (_) => Single(),

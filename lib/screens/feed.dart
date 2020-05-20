@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/services/auth.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -6,6 +7,7 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
+  final AuthService _auth = AuthService();
   String categoryValue;
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,23 @@ class _FeedState extends State<Feed> {
                         Icons.person,
                         color: Colors.white,
                         size: 35,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    top: 2,
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      color: Colors.transparent,
+                      onPressed: () async {
+                        if (await _auth.signOut()) {
+                          Navigator.of(context).popAndPushNamed('/login');
+                        }
+                      },
+                      child: Text(
+                        'logout',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

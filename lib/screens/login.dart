@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:purple/models/user.dart';
+import 'package:purple/screens/feed.dart';
+import 'package:purple/services/auth.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -6,11 +10,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String error;
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -91,13 +98,20 @@ class _LoginState extends State<Login> {
                                     },
                                   ),
                                   RaisedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (_formKey.currentState.validate()) {
-                                        print(email);
-                                        print(password);
-                                        Navigator.of(context).pushNamed(
-                                          '/feed',
-                                        );
+                                        dynamic result = await _auth
+                                            .signInWithEmailAndPassword(
+                                                email, password);
+                                        if (result == null) {
+                                          setState(() {
+                                            error = 'error signing in';
+                                          });
+                                        } else {
+                                          Navigator.of(context).pushNamed(
+                                              '/feed',
+                                              arguments: result.uid);
+                                        }
                                       }
                                     },
                                     color: const Color(0xffB513A4),

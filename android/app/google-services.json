@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "718629954783",
+    "firebase_url": "https://purple-aa6da.firebaseio.com",
+    "project_id": "purple-aa6da",
+    "storage_bucket": "purple-aa6da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718629954783:android:1d67a4d5b83489c506f56a",
+        "android_client_info": {
+          "package_name": "com.example.purple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718629954783-n3l0sk3a3557tb15q175avrq72i9ahcv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADX5M95y3ynNLDFqQAD7OSdLzPvxs1_HE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718629954783-n3l0sk3a3557tb15q175avrq72i9ahcv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
