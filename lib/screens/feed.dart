@@ -6,70 +6,136 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
+  String categoryValue;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  width: MediaQuery.of(context).size.width + 150,
-                  left: -50,
-                  top: 0,
-                  child: Image.asset(
-                    'assets/appbarbottom.png',
-                  ),
-                ),
-                Positioned(
-                  width: MediaQuery.of(context).size.width + 150,
-                  left: -50,
-                  top: -15,
-                  child: Image.asset(
-                    'assets/appbarmiddle.png',
-                  ),
-                ),
-                Positioned(
-                  width: MediaQuery.of(context).size.width + 150,
-                  left: -50,
-                  top: -25,
-                  child: Image.asset(
-                    'assets/appbartop.png',
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 7,
-                  child: RaisedButton(
-                    padding: EdgeInsets.all(0),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: 35,
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
+                    width: MediaQuery.of(context).size.width + 150,
+                    left: -50,
+                    top: 0,
+                    child: Image.asset(
+                      'assets/appbarbottom.png',
                     ),
                   ),
-                ),
-              ],
+                  Positioned(
+                    width: MediaQuery.of(context).size.width + 150,
+                    left: -50,
+                    top: -15,
+                    child: Image.asset(
+                      'assets/appbarmiddle.png',
+                    ),
+                  ),
+                  Positioned(
+                    width: MediaQuery.of(context).size.width + 150,
+                    left: -50,
+                    top: -25,
+                    child: Image.asset(
+                      'assets/appbartop.png',
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 7,
+                    child: RaisedButton(
+                      padding: EdgeInsets.all(0),
+                      color: Colors.transparent,
+                      elevation: 0,
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 5,
-            child: ListView(
-              children: <Widget>[
-                ItemCard(),
-                ItemCard(),
-                ItemCard(),
-                ItemCard(),
-              ],
+            Expanded(
+              flex: 5,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButton<String>(
+                              itemHeight: 63,
+                              hint: Text('Category'),
+                              items: <String>['Product', 'Service', 'Job']
+                                  .map((String value) {
+                                return new DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (_) {
+                                setState(() {
+                                  categoryValue = _;
+                                });
+                                print(_);
+                                print(categoryValue);
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                hintText: 'Search..',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: RaisedButton(
+                              color: const Color(0xFF8900FF),
+                              onPressed: () {},
+                              child: Text(
+                                'Filter',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      children: <Widget>[
+                        ItemCard(),
+                        ItemCard(),
+                        ItemCard(),
+                        ItemCard(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
