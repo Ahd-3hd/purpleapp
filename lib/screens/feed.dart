@@ -11,6 +11,7 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xFF8900FF),
           onPressed: () {},
           child: Icon(
             Icons.add_to_photos,
