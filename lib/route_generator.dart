@@ -5,6 +5,7 @@ import 'package:purple/screens/login.dart';
 import 'package:purple/screens/login_signup.dart';
 import 'package:purple/screens/profile.dart';
 import 'package:purple/screens/signup.dart';
+import 'package:purple/screens/user_posts.dart';
 import 'package:purple/screens/welcome.dart';
 
 class RouteGenerator {
@@ -38,6 +39,10 @@ class RouteGenerator {
       case '/profile':
         return MaterialPageRoute(
           builder: (_) => Profile(),
+        );
+      case '/profile/posts':
+        return MaterialPageRoute(
+          builder: (_) => UserPosts(),
         );
       default:
         return _errorRoute();
