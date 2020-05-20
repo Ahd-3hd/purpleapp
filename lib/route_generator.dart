@@ -3,6 +3,7 @@ import 'package:purple/screens/Single.dart';
 import 'package:purple/screens/feed.dart';
 import 'package:purple/screens/login.dart';
 import 'package:purple/screens/login_signup.dart';
+import 'package:purple/screens/profile.dart';
 import 'package:purple/screens/signup.dart';
 import 'package:purple/screens/welcome.dart';
 
@@ -33,6 +34,10 @@ class RouteGenerator {
       case '/single':
         return MaterialPageRoute(
           builder: (_) => Single(),
+        );
+      case '/profile':
+        return MaterialPageRoute(
+          builder: (_) => Profile(),
         );
       default:
         return _errorRoute();
