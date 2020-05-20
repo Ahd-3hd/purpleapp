@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/feed',
+      initialRoute: '/single',
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
