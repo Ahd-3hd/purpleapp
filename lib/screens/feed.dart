@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:purple/models/user.dart';
 import 'package:purple/services/auth.dart';
+import 'package:purple/services/database.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -11,10 +14,15 @@ class _FeedState extends State<Feed> {
   String categoryValue;
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           backgroundColor: const Color(0xFF8900FF),
-          onPressed: () {},
+          onPressed: () async {
+            // dynamic result = await DatabaseSerivce()
+            //     .createPost(user.uid, '2', '3', '4', ['a', 'b', 'c']);
+            // print(result);
+          },
           child: Icon(
             Icons.add_to_photos,
           )),

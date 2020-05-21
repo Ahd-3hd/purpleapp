@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purple/screens/Single.dart';
+import 'package:purple/screens/create_post.dart';
 import 'package:purple/screens/feed.dart';
 import 'package:purple/screens/login.dart';
 import 'package:purple/screens/login_signup.dart';
@@ -48,6 +49,10 @@ class RouteGenerator {
       case '/profile':
         return MaterialPageRoute(
           builder: (_) => Profile(),
+        );
+      case '/create':
+        return MaterialPageRoute(
+          builder: (_) => CreatePost(),
         );
       case '/profile/posts':
         return MaterialPageRoute(
