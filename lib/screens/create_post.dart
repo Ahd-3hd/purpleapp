@@ -23,6 +23,8 @@ class _CreatePostState extends State<CreatePost> {
   String postKeywordOne;
   String postKeywordTwo;
   String postKeywordThree;
+  String postLocation;
+  String postPrice;
   final AuthService _auth = AuthService();
   String categoryValue;
   Future chooseFile() async {
@@ -46,7 +48,9 @@ class _CreatePostState extends State<CreatePost> {
           postDesc,
           postCategory,
           [postKeywordOne, postKeywordTwo, postKeywordThree],
-          fileURL);
+          fileURL,
+          postLocation,
+          postPrice);
       setState(() {
         isUploaded = true;
       });
@@ -137,140 +141,175 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   Expanded(
                     flex: 5,
-                    child: Form(
-                      child: ListView(
-                        children: [
-                          Container(
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'Title',
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Form(
+                        child: ListView(
+                          children: [
+                            Container(
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: 'Title',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? 'Enter a title' : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    postTitle = val;
+                                  });
+                                },
                               ),
-                              validator: (val) =>
-                                  val.isEmpty ? 'Enter a title' : null,
-                              onChanged: (val) {
-                                setState(() {
-                                  postTitle = val;
-                                });
-                              },
                             ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            child: DropdownButton<String>(
-                              hint: Text('Category'),
-                              value: postCategory,
-                              items: <String>['Product', 'Service', 'Job']
-                                  .map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {
-                                setState(() {
-                                  postCategory = _;
-                                });
-                                print(postCategory);
-                              },
-                            ),
-                          ),
-                          Container(
-                            child: TextFormField(
-                              minLines: 5,
-                              maxLines: 5,
-                              decoration: InputDecoration(
-                                hintText: 'Description',
+                            Container(
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: 'Location',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? 'Enter Location' : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    postLocation = val;
+                                  });
+                                },
                               ),
-                              validator: (val) =>
-                                  val.isEmpty ? 'Enter a a description' : null,
-                              onChanged: (val) {
-                                setState(() {
-                                  postDesc = val;
-                                });
-                              },
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                      hintText: 'Keyword 1',
+                            Container(
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: 'Price',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? 'Enter Price' : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    postPrice = val;
+                                  });
+                                },
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              child: DropdownButton<String>(
+                                hint: Text('Category'),
+                                value: postCategory,
+                                items: <String>['Product', 'Service', 'Job']
+                                    .map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (_) {
+                                  setState(() {
+                                    postCategory = _;
+                                  });
+                                  print(postCategory);
+                                },
+                              ),
+                            ),
+                            Container(
+                              child: TextFormField(
+                                minLines: 5,
+                                maxLines: 5,
+                                decoration: InputDecoration(
+                                  hintText: 'Description',
+                                ),
+                                validator: (val) => val.isEmpty
+                                    ? 'Enter a a description'
+                                    : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    postDesc = val;
+                                  });
+                                },
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: 'Keyword 1',
+                                      ),
+                                      validator: (val) => val.isEmpty
+                                          ? 'Enter a keyword'
+                                          : null,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          postKeywordOne = val;
+                                        });
+                                      },
                                     ),
-                                    validator: (val) =>
-                                        val.isEmpty ? 'Enter a keyword' : null,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        postKeywordOne = val;
-                                      });
-                                    },
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                      hintText: 'Keyword 2',
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: 'Keyword 2',
+                                      ),
+                                      validator: (val) => val.isEmpty
+                                          ? 'Enter a keyword'
+                                          : null,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          postKeywordTwo = val;
+                                        });
+                                      },
                                     ),
-                                    validator: (val) =>
-                                        val.isEmpty ? 'Enter a keyword' : null,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        postKeywordTwo = val;
-                                      });
-                                    },
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                      hintText: 'Keyword 3',
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: 'Keyword 3',
+                                      ),
+                                      validator: (val) => val.isEmpty
+                                          ? 'Enter a keyword'
+                                          : null,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          postKeywordThree = val;
+                                        });
+                                      },
                                     ),
-                                    validator: (val) =>
-                                        val.isEmpty ? 'Enter a keyword' : null,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        postKeywordThree = val;
-                                      });
-                                    },
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                RaisedButton(
-                                  child: Text('Choose Image'),
-                                  onPressed: chooseFile,
-                                  color: Colors.cyan,
-                                ),
-                                RaisedButton(
-                                  child: Text('Post'),
-                                  onPressed: () async {
-                                    await uploadFile(user.uid);
-                                  },
-                                  color: Colors.cyan,
-                                ),
-                                Container(
-                                  height: 200,
-                                  child: _image != null
-                                      ? (Image.asset(_image.path))
-                                      : Text('Choose Image'),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  RaisedButton(
+                                    child: Text('Choose Image'),
+                                    onPressed: chooseFile,
+                                    color: Colors.cyan,
+                                  ),
+                                  RaisedButton(
+                                    child: Text('Post'),
+                                    onPressed: () async {
+                                      await uploadFile(user.uid);
+                                    },
+                                    color: Colors.cyan,
+                                  ),
+                                  Container(
+                                    height: 200,
+                                    child: _image != null
+                                        ? (Image.asset(_image.path))
+                                        : Text('Choose Image'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
