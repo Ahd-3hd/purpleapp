@@ -24,7 +24,7 @@ class DatabaseSerivce {
 
   // get posts from database
   Stream<QuerySnapshot> get thePosts {
-    if (categoryValue != null && keyword != null || keyword.isNotEmpty) {
+    if (categoryValue != null && keyword != null && keyword.isNotEmpty) {
       return postsCollection
           .where('category', isEqualTo: categoryValue)
           .where('keyword', arrayContains: keyword)
@@ -35,12 +35,13 @@ class DatabaseSerivce {
           .where('category', isEqualTo: categoryValue)
           .orderBy('desc')
           .snapshots();
-    } else if (keyword != null || keyword.isNotEmpty) {
+    } else if (keyword != null && keyword.isNotEmpty) {
       return postsCollection
           .where('keyword', arrayContains: keyword)
           .orderBy('desc')
           .snapshots();
+    } else {
+      return postsCollection.orderBy('desc').snapshots();
     }
-    return postsCollection.orderBy('desc').snapshots();
   }
 }
