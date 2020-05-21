@@ -111,17 +111,29 @@ class _FeedState extends State<Feed> {
                               child: DropdownButton<String>(
                                 itemHeight: 63,
                                 hint: Text('Category'),
-                                items: <String>['Product', 'Service', 'Job']
-                                    .map((String value) {
-                                  return new DropdownMenuItem<String>(
+                                value: categoryValue,
+                                items: <String>[
+                                  'Any',
+                                  'Product',
+                                  'Service',
+                                  'Job'
+                                ].map((String value) {
+                                  return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
                                   );
                                 }).toList(),
                                 onChanged: (_) {
-                                  setState(() {
-                                    categoryValue = _;
-                                  });
+                                  if (_ != 'Any') {
+                                    setState(() {
+                                      categoryValue = _;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      categoryValue = null;
+                                    });
+                                  }
+
                                   print(_);
                                   print(categoryValue);
                                 },
@@ -144,19 +156,6 @@ class _FeedState extends State<Feed> {
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: RaisedButton(
-                                color: const Color(0xFF8900FF),
-                                onPressed: () {},
-                                child: Text(
-                                  'Filter',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ),
