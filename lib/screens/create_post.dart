@@ -17,6 +17,12 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
   File _image;
   bool isUploaded = false;
+  String postTitle;
+  String postCategory;
+  String postDesc;
+  String postKeywordOne;
+  String postKeywordTwo;
+  String postKeywordThree;
   final AuthService _auth = AuthService();
   String categoryValue;
   Future chooseFile() async {
@@ -34,8 +40,13 @@ class _CreatePostState extends State<CreatePost> {
     StorageUploadTask uploadTask = storageReference.putFile(_image);
     await uploadTask.onComplete;
     storageReference.getDownloadURL().then((fileURL) async {
-      await DatabaseSerivce()
-          .createPost(userid, 'title', 'desc', 'category', ['a', 'b'], fileURL);
+      await DatabaseSerivce().createPost(
+          userid,
+          postTitle,
+          postDesc,
+          postCategory,
+          [postKeywordOne, postKeywordTwo, postKeywordThree],
+          fileURL);
       setState(() {
         isUploaded = true;
       });
@@ -49,13 +60,14 @@ class _CreatePostState extends State<CreatePost> {
     return !isUploaded
         ? Scaffold(
             floatingActionButton: FloatingActionButton(
-                backgroundColor: const Color(0xFF8900FF),
-                onPressed: () async {
-                  await uploadFile(user.uid);
-                },
-                child: Icon(
-                  Icons.add_to_photos,
-                )),
+              backgroundColor: const Color(0xFF8900FF),
+              onPressed: () async {
+                await uploadFile(user.uid);
+              },
+              child: Icon(
+                Icons.create,
+              ),
+            ),
             body: Container(
               color: Colors.white,
               child: Column(
@@ -135,13 +147,18 @@ class _CreatePostState extends State<CreatePost> {
                               ),
                               validator: (val) =>
                                   val.isEmpty ? 'Enter a title' : null,
-                              onChanged: (val) {},
+                              onChanged: (val) {
+                                setState(() {
+                                  postTitle = val;
+                                });
+                              },
                             ),
                           ),
                           Container(
                             width: double.infinity,
                             child: DropdownButton<String>(
                               hint: Text('Category'),
+                              value: postCategory,
                               items: <String>['Product', 'Service', 'Job']
                                   .map((String value) {
                                 return DropdownMenuItem<String>(
@@ -149,7 +166,12 @@ class _CreatePostState extends State<CreatePost> {
                                   child: Text(value),
                                 );
                               }).toList(),
-                              onChanged: (_) {},
+                              onChanged: (_) {
+                                setState(() {
+                                  postCategory = _;
+                                });
+                                print(postCategory);
+                              },
                             ),
                           ),
                           Container(
@@ -161,7 +183,11 @@ class _CreatePostState extends State<CreatePost> {
                               ),
                               validator: (val) =>
                                   val.isEmpty ? 'Enter a a description' : null,
-                              onChanged: (val) {},
+                              onChanged: (val) {
+                                setState(() {
+                                  postDesc = val;
+                                });
+                              },
                             ),
                           ),
                           Row(
@@ -176,7 +202,11 @@ class _CreatePostState extends State<CreatePost> {
                                     ),
                                     validator: (val) =>
                                         val.isEmpty ? 'Enter a keyword' : null,
-                                    onChanged: (val) {},
+                                    onChanged: (val) {
+                                      setState(() {
+                                        postKeywordOne = val;
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
@@ -189,7 +219,11 @@ class _CreatePostState extends State<CreatePost> {
                                     ),
                                     validator: (val) =>
                                         val.isEmpty ? 'Enter a keyword' : null,
-                                    onChanged: (val) {},
+                                    onChanged: (val) {
+                                      setState(() {
+                                        postKeywordTwo = val;
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
@@ -202,7 +236,11 @@ class _CreatePostState extends State<CreatePost> {
                                     ),
                                     validator: (val) =>
                                         val.isEmpty ? 'Enter a keyword' : null,
-                                    onChanged: (val) {},
+                                    onChanged: (val) {
+                                      setState(() {
+                                        postKeywordThree = val;
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
@@ -215,6 +253,19 @@ class _CreatePostState extends State<CreatePost> {
                                   child: Text('Choose Image'),
                                   onPressed: chooseFile,
                                   color: Colors.cyan,
+                                ),
+                                RaisedButton(
+                                  child: Text('Post'),
+                                  onPressed: () async {
+                                    await uploadFile(user.uid);
+                                  },
+                                  color: Colors.cyan,
+                                ),
+                                Container(
+                                  height: 200,
+                                  child: _image != null
+                                      ? (Image.asset(_image.path))
+                                      : Text('Choose Image'),
                                 ),
                               ],
                             ),
