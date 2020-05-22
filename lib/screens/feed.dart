@@ -5,6 +5,7 @@ import 'package:purple/services/auth.dart';
 import 'package:purple/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -284,7 +285,15 @@ class ItemCard extends StatelessWidget {
                       children: <Widget>[
                         RaisedButton(
                           color: const Color(0xffB513A4),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (await canLaunch(
+                                "whatsapp://send?phone=${data['whatsAppNumber']}")) {
+                              await launch(
+                                  "whatsapp://send?phone=${data['whatsAppNumber']}");
+                            } else {
+                              throw 'Could not launch ${data['whatsAppNumber']}';
+                            }
+                          },
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -303,7 +312,13 @@ class ItemCard extends StatelessWidget {
                         ),
                         RaisedButton(
                           color: const Color(0xffB513A4),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (await canLaunch("tel:${data['phoneNumber']}")) {
+                              await launch("tel:${data['phoneNumber']}");
+                            } else {
+                              throw 'Could not launch ${data['phoneNumber']}';
+                            }
+                          },
                           child: Row(
                             children: <Widget>[
                               Icon(
