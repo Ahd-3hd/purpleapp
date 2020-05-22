@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Single extends StatefulWidget {
-  dynamic data;
+  final dynamic data;
   Single({this.data});
   @override
   _SingleState createState() => _SingleState();
@@ -157,7 +158,15 @@ class _SingleState extends State<Single> {
                       children: [
                         RaisedButton(
                           color: const Color(0xffB513A4),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (await canLaunch(
+                                "whatsapp://send?phone=${widget.data['whatsAppNumber']}")) {
+                              await launch(
+                                  "whatsapp://send?phone=${widget.data['whatsAppNumber']}");
+                            } else {
+                              throw 'Could not launch ${widget.data['whatsAppNumber']}';
+                            }
+                          },
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -176,7 +185,14 @@ class _SingleState extends State<Single> {
                         ),
                         RaisedButton(
                           color: const Color(0xffB513A4),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (await canLaunch(
+                                "tel:${widget.data['phoneNumber']}")) {
+                              await launch("tel:${widget.data['phoneNumber']}");
+                            } else {
+                              throw 'Could not launch ${widget.data['phoneNumber']}';
+                            }
+                          },
                           child: Row(
                             children: <Widget>[
                               Icon(
