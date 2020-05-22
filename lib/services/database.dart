@@ -13,10 +13,6 @@ class DatabaseSerivce {
   // create post
   Future createPost(String userid, String title, String desc, String category,
       List keywords, String imageurl, String location, String price) async {
-    await usersCollection
-        .document(userid)
-        .get()
-        .then((value) => print(value.data));
     return await postsCollection.document().setData({
       'userid': userid,
       'title': title,
@@ -34,7 +30,8 @@ class DatabaseSerivce {
       'whatsAppNumber': await usersCollection
           .document(userid)
           .get()
-          .then((value) => value.data['phoneNumber'])
+          .then((value) => value.data['phoneNumber']),
+      'comments': [],
     });
   }
 

@@ -94,7 +94,7 @@ class _SingleState extends State<Single> {
                     height: 300,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(widget.data['imgurl']),
+                        image: NetworkImage(widget.data[0]['imgurl']),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -105,14 +105,14 @@ class _SingleState extends State<Single> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.data['title'],
+                          widget.data[0]['title'],
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'TL ${widget.data['price']}',
+                          'TL ${widget.data[0]['price']}',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -133,7 +133,7 @@ class _SingleState extends State<Single> {
                             width: 5,
                           ),
                           Text(
-                            widget.data['location'],
+                            widget.data[0]['location'],
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 15,
@@ -146,7 +146,7 @@ class _SingleState extends State<Single> {
                   Container(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      widget.data['desc'],
+                      widget.data[0]['desc'],
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -160,11 +160,11 @@ class _SingleState extends State<Single> {
                           color: const Color(0xffB513A4),
                           onPressed: () async {
                             if (await canLaunch(
-                                "whatsapp://send?phone=${widget.data['whatsAppNumber']}")) {
+                                "whatsapp://send?phone=${widget.data[0]['whatsAppNumber']}")) {
                               await launch(
-                                  "whatsapp://send?phone=${widget.data['whatsAppNumber']}");
+                                  "whatsapp://send?phone=${widget.data[0]['whatsAppNumber']}");
                             } else {
-                              throw 'Could not launch ${widget.data['whatsAppNumber']}';
+                              throw 'Could not launch ${widget.data[0]['whatsAppNumber']}';
                             }
                           },
                           child: Row(
@@ -187,10 +187,11 @@ class _SingleState extends State<Single> {
                           color: const Color(0xffB513A4),
                           onPressed: () async {
                             if (await canLaunch(
-                                "tel:${widget.data['phoneNumber']}")) {
-                              await launch("tel:${widget.data['phoneNumber']}");
+                                "tel:${widget.data[0]['phoneNumber']}")) {
+                              await launch(
+                                  "tel:${widget.data[0]['phoneNumber']}");
                             } else {
-                              throw 'Could not launch ${widget.data['phoneNumber']}';
+                              throw 'Could not launch ${widget.data[0]['phoneNumber']}';
                             }
                           },
                           child: Row(

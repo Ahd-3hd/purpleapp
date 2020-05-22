@@ -194,6 +194,7 @@ class PostList extends StatelessWidget {
           children: posts.documents
               .map((singleItem) => ItemCard(
                     data: singleItem,
+                    docid: singleItem.documentID,
                   ))
               .toList()),
     );
@@ -202,14 +203,15 @@ class PostList extends StatelessWidget {
 
 class ItemCard extends StatelessWidget {
   final data;
-  const ItemCard({Key key, this.data}) : super(key: key);
+  final docid;
+  const ItemCard({Key key, this.data, this.docid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed('/single', arguments: data);
+          Navigator.of(context).pushNamed('/single', arguments: [data, docid]);
         },
         child: Card(
           child: Column(
