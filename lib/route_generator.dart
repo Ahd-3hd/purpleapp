@@ -8,7 +8,6 @@ import 'package:purple/screens/profile.dart';
 import 'package:purple/screens/signup.dart';
 import 'package:purple/screens/user_posts.dart';
 import 'package:purple/screens/welcome.dart';
-import 'package:purple/services/auth.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings, {user}) {
@@ -36,7 +35,9 @@ class RouteGenerator {
         break;
       case '/single':
         return MaterialPageRoute(
-          builder: (_) => Single(),
+          builder: (_) => Single(
+            data: args,
+          ),
         );
       case '/profile':
         return MaterialPageRoute(

@@ -210,142 +210,147 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Card(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 300,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(data['imgurl']),
-                  fit: BoxFit.cover,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed('/single', arguments: data);
+        },
+        child: Card(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 300,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(data['imgurl']),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        data['title'],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          data['title'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'TL ${data['price']}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
+                        Text(
+                          'TL ${data['price']}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '${data['location']}',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
-                    child: Text(
-                      data['desc'],
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      RaisedButton(
-                        color: const Color(0xffB513A4),
-                        onPressed: () {},
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
                         child: Row(
-                          children: <Widget>[
+                          children: [
                             Icon(
-                              Icons.insert_comment,
-                              color: Colors.white,
+                              Icons.location_on,
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Text(
-                              'Whatsapp',
+                              '${data['location']}',
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: Colors.white,
+                                fontSize: 15,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
-                      RaisedButton(
-                        color: const Color(0xffB513A4),
-                        onPressed: () {},
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.phone,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              'Call',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 0),
+                      child: Text(
+                        data['desc'],
+                        style: TextStyle(
+                          fontSize: 15,
                         ),
                       ),
-                      RaisedButton(
-                        color: Colors.transparent,
-                        elevation: 0,
-                        onPressed: () {},
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.rate_review,
-                              color: Colors.grey[800],
-                            ),
-                            SizedBox(width: 3),
-                            Text(
-                              'Reviews',
-                              style: TextStyle(
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        RaisedButton(
+                          color: const Color(0xffB513A4),
+                          onPressed: () {},
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.insert_comment,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Whatsapp',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        RaisedButton(
+                          color: const Color(0xffB513A4),
+                          onPressed: () {},
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Call',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        RaisedButton(
+                          color: Colors.transparent,
+                          elevation: 0,
+                          onPressed: () {},
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.rate_review,
                                 color: Colors.grey[800],
                               ),
-                            ),
-                          ],
+                              SizedBox(width: 3),
+                              Text(
+                                'Reviews',
+                                style: TextStyle(
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

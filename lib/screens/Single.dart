@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Single extends StatefulWidget {
+  dynamic data;
+  Single({this.data});
   @override
   _SingleState createState() => _SingleState();
 }
@@ -70,7 +72,9 @@ class _SingleState extends State<Single> {
                       padding: EdgeInsets.all(0),
                       color: Colors.transparent,
                       elevation: 0,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).popAndPushNamed('/feed');
+                      },
                       child: Icon(
                         Icons.arrow_back,
                         color: Colors.white,
@@ -89,7 +93,7 @@ class _SingleState extends State<Single> {
                     height: 300,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/headerbg.jpg'),
+                        image: NetworkImage(widget.data['imgurl']),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -100,14 +104,14 @@ class _SingleState extends State<Single> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Title Here',
+                          widget.data['title'],
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'TL 95.36',
+                          'TL ${widget.data['price']}',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -128,7 +132,7 @@ class _SingleState extends State<Single> {
                             width: 5,
                           ),
                           Text(
-                            'Location',
+                            widget.data['location'],
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 15,
@@ -141,7 +145,7 @@ class _SingleState extends State<Single> {
                   Container(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed turpis lectus, hendrerit a dignissim ac, pulvinar finibus nulla. Nullam ullamcorper quam nec pulvinar commodo.',
+                      widget.data['desc'],
                       style: TextStyle(
                         fontSize: 15,
                       ),
