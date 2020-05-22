@@ -18,7 +18,8 @@ class DatabaseSerivce {
       'keyword': keywords,
       'imgurl': imageurl,
       'location': location,
-      'price': price
+      'price': price,
+      'time': Timestamp.now()
     });
   }
 
@@ -28,20 +29,20 @@ class DatabaseSerivce {
       return postsCollection
           .where('category', isEqualTo: categoryValue)
           .where('keyword', arrayContains: keyword)
-          .orderBy('desc')
+          .orderBy('time', descending: true)
           .snapshots();
     } else if (categoryValue != null) {
       return postsCollection
           .where('category', isEqualTo: categoryValue)
-          .orderBy('desc')
+          .orderBy('time', descending: true)
           .snapshots();
     } else if (keyword != null && keyword.isNotEmpty) {
       return postsCollection
           .where('keyword', arrayContains: keyword)
-          .orderBy('desc')
+          .orderBy('time', descending: true)
           .snapshots();
     } else {
-      return postsCollection.orderBy('desc').snapshots();
+      return postsCollection.orderBy('time', descending: true).snapshots();
     }
   }
 }
