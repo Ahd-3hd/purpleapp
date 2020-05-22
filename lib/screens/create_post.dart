@@ -69,7 +69,7 @@ class _CreatePostState extends State<CreatePost> {
                 Navigator.of(context).popAndPushNamed('/feed');
               },
               child: Icon(
-                Icons.create,
+                Icons.arrow_back,
               ),
             ),
             body: Container(
