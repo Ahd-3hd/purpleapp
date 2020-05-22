@@ -17,10 +17,6 @@ class _FeedState extends State<Feed> {
   String keyword;
   @override
   Widget build(BuildContext context) {
-    // if(StreamProvider<User>){
-
-    // }
-    print(Provider.of<User>(context));
     if (Provider.of<User>(context) != null) {
       return StreamProvider<QuerySnapshot>.value(
         value: DatabaseSerivce(categoryValue: categoryValue, keyword: keyword)
