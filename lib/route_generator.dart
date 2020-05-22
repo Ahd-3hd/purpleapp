@@ -11,7 +11,7 @@ import 'package:purple/screens/welcome.dart';
 import 'package:purple/services/auth.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(RouteSettings settings, {user}) {
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
     switch (settings.name) {
@@ -30,17 +30,9 @@ class RouteGenerator {
           builder: (_) => Signup(),
         );
       case '/feed':
-        print(args);
-        if (args != null) {
-          return MaterialPageRoute(
-            builder: (_) => Feed(),
-          );
-        } else {
-          print(AuthService().user);
-          return MaterialPageRoute(
-            builder: (_) => Login(),
-          );
-        }
+        return MaterialPageRoute(
+          builder: (_) => Feed(),
+        );
         break;
       case '/single':
         return MaterialPageRoute(

@@ -65,8 +65,8 @@ class _CreatePostState extends State<CreatePost> {
         ? Scaffold(
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color(0xFF8900FF),
-              onPressed: () async {
-                await uploadFile(user.uid);
+              onPressed: () {
+                Navigator.of(context).popAndPushNamed('/feed');
               },
               child: Icon(
                 Icons.create,

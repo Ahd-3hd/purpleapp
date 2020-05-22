@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:purple/models/user.dart';
+import 'package:purple/screens/welcome.dart';
 import 'package:purple/services/auth.dart';
 import 'package:purple/services/database.dart';
 import 'package:provider/provider.dart';
@@ -15,159 +17,167 @@ class _FeedState extends State<Feed> {
   String keyword;
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot>.value(
-      value: DatabaseSerivce(categoryValue: categoryValue, keyword: keyword)
-          .thePosts,
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: const Color(0xFF8900FF),
-            onPressed: () async {
-              Navigator.of(context).pushNamed('/create');
-            },
-            child: Icon(
-              Icons.add_to_photos,
-            )),
-        body: Container(
-          color: Colors.white,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      width: MediaQuery.of(context).size.width + 150,
-                      left: -50,
-                      top: 0,
-                      child: Image.asset(
-                        'assets/appbarbottom.png',
-                      ),
-                    ),
-                    Positioned(
-                      width: MediaQuery.of(context).size.width + 150,
-                      left: -50,
-                      top: -15,
-                      child: Image.asset(
-                        'assets/appbarmiddle.png',
-                      ),
-                    ),
-                    Positioned(
-                      width: MediaQuery.of(context).size.width + 150,
-                      left: -50,
-                      top: -25,
-                      child: Image.asset(
-                        'assets/appbartop.png',
-                      ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: 7,
-                      child: RaisedButton(
-                        padding: EdgeInsets.all(0),
-                        color: Colors.transparent,
-                        elevation: 0,
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 35,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 0,
-                      top: 2,
-                      child: FlatButton(
-                        padding: EdgeInsets.all(0),
-                        color: Colors.transparent,
-                        onPressed: () async {
-                          if (await _auth.signOut()) {
-                            Navigator.of(context).popAndPushNamed('/login');
-                          }
-                        },
-                        child: Text(
-                          'logout',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 5,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DropdownButton<String>(
-                                itemHeight: 63,
-                                hint: Text('Category'),
-                                value: categoryValue,
-                                items: <String>[
-                                  'Any',
-                                  'Product',
-                                  'Service',
-                                  'Job'
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (_) {
-                                  if (_ != 'Any') {
-                                    setState(() {
-                                      categoryValue = _;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      categoryValue = null;
-                                    });
-                                  }
+    // if(StreamProvider<User>){
 
-                                  print(_);
-                                  print(categoryValue);
-                                },
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  hintText: 'Search..',
-                                ),
-                                onChanged: (val) {
-                                  setState(() {
-                                    keyword = val;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+    // }
+    print(Provider.of<User>(context));
+    if (Provider.of<User>(context) != null) {
+      return StreamProvider<QuerySnapshot>.value(
+        value: DatabaseSerivce(categoryValue: categoryValue, keyword: keyword)
+            .thePosts,
+        child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+              backgroundColor: const Color(0xFF8900FF),
+              onPressed: () async {
+                Navigator.of(context).pushNamed('/create');
+              },
+              child: Icon(
+                Icons.add_to_photos,
+              )),
+          body: Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        width: MediaQuery.of(context).size.width + 150,
+                        left: -50,
+                        top: 0,
+                        child: Image.asset(
+                          'assets/appbarbottom.png',
+                        ),
                       ),
-                    ),
-                    PostList(),
-                  ],
+                      Positioned(
+                        width: MediaQuery.of(context).size.width + 150,
+                        left: -50,
+                        top: -15,
+                        child: Image.asset(
+                          'assets/appbarmiddle.png',
+                        ),
+                      ),
+                      Positioned(
+                        width: MediaQuery.of(context).size.width + 150,
+                        left: -50,
+                        top: -25,
+                        child: Image.asset(
+                          'assets/appbartop.png',
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        top: 7,
+                        child: RaisedButton(
+                          padding: EdgeInsets.all(0),
+                          color: Colors.transparent,
+                          elevation: 0,
+                          onPressed: () {},
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 0,
+                        top: 2,
+                        child: FlatButton(
+                          padding: EdgeInsets.all(0),
+                          color: Colors.transparent,
+                          onPressed: () async {
+                            if (await _auth.signOut()) {
+                              Navigator.of(context).popAndPushNamed('/login');
+                            }
+                          },
+                          child: Text(
+                            'logout',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  flex: 5,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: DropdownButton<String>(
+                                  itemHeight: 63,
+                                  hint: Text('Category'),
+                                  value: categoryValue,
+                                  items: <String>[
+                                    'Any',
+                                    'Product',
+                                    'Service',
+                                    'Job'
+                                  ].map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  onChanged: (_) {
+                                    if (_ != 'Any') {
+                                      setState(() {
+                                        categoryValue = _;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        categoryValue = null;
+                                      });
+                                    }
+
+                                    print(_);
+                                    print(categoryValue);
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  maxLines: 1,
+                                  decoration: InputDecoration(
+                                    hintText: 'Search..',
+                                  ),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      keyword = val;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      PostList(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Welcome();
+    }
   }
 }
 
