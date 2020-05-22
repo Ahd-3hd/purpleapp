@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/feed',
+        initialRoute: '/comment',
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );

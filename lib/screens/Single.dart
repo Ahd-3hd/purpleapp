@@ -212,7 +212,10 @@ class _SingleState extends State<Single> {
                         ),
                         RaisedButton(
                           color: const Color(0xffB513A4),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/comment',
+                                arguments: widget.data[1]);
+                          },
                           child: Row(
                             children: <Widget>[
                               Icon(

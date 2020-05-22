@@ -8,6 +8,7 @@ import 'package:purple/screens/profile.dart';
 import 'package:purple/screens/signup.dart';
 import 'package:purple/screens/user_posts.dart';
 import 'package:purple/screens/welcome.dart';
+import 'package:purple/screens/create_comment.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings, {user}) {
@@ -50,6 +51,10 @@ class RouteGenerator {
       case '/profile/posts':
         return MaterialPageRoute(
           builder: (_) => UserPosts(),
+        );
+      case '/comment':
+        return MaterialPageRoute(
+          builder: (_) => CreateComment(docid: args),
         );
       default:
         return _errorRoute();

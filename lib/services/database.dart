@@ -35,6 +35,17 @@ class DatabaseSerivce {
     });
   }
 
+  Future createComment(String userid, String docid, String comment) async {
+    List comments = await postsCollection
+        .document(docid)
+        .get()
+        .then((value) => value.data['comments']);
+    comments.add({'comment': comment, 'userid': userid});
+    return await postsCollection
+        .document(docid)
+        .updateData({'comments': comments});
+  }
+
   // update user data
   Future updateUserData(String phoneNumber, String whatsAppNumber) async {
     return await usersCollection.document(uid).setData({
