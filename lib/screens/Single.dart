@@ -235,7 +235,11 @@ class _SingleState extends State<Single> {
                       ],
                     ),
                   ),
-                  Comment(),
+                  Comment(commentData: widget.data[0]['comments']),
+
+                  // widget.data[0]['comments'].map((someComment) => Comment(
+                  //       commentData: someComment,
+                  //     ))
                 ],
               ),
             ),
@@ -247,39 +251,74 @@ class _SingleState extends State<Single> {
 }
 
 class Comment extends StatelessWidget {
-  const Comment({
-    Key key,
-  }) : super(key: key);
+  final dynamic commentData;
+  const Comment({Key key, this.commentData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[300],
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.phone,
+    print(commentData);
+    return Column(
+        children: commentData
+            .map<Widget>(
+              (singleComment) => Card(
+                color: Colors.grey[300],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.phone,
+                            ),
+                            Text(singleComment['userid'][0]),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Text(singleComment['comment']),
+                      ),
+                    ],
                   ),
-                  Text('username'),
-                ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed turpis lectus, hendrerit a dignissim ac, pulvinar'),
-            ),
-          ],
-        ),
-      ),
-    );
+            )
+            .toList());
   }
 }
+
+// <Widget>[
+//         Card(
+//           color: Colors.grey[300],
+//           child: Padding(
+//             padding: const EdgeInsets.all(10.0),
+//             child: Row(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: <Widget>[
+//                 Expanded(
+//                   flex: 1,
+//                   child: Row(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       Icon(
+//                         Icons.phone,
+//                       ),
+//                       Text('username'),
+//                     ],
+//                   ),
+//                 ),
+//                 Expanded(
+//                   flex: 3,
+//                   child: Text(
+//                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed turpis lectus, hendrerit a dignissim ac, pulvinar'),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ],

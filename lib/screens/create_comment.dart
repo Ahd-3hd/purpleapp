@@ -138,9 +138,10 @@ class _CreateCommentState extends State<CreateComment> {
                           children: <Widget>[
                             RaisedButton(
                               child: Text('Post'),
-                              onPressed: () {
-                                DatabaseSerivce().createComment(
+                              onPressed: () async {
+                                await DatabaseSerivce().createComment(
                                     user.uid, widget.docid, comment);
+                                Navigator.of(context).pop();
                               },
                               color: Colors.cyan,
                             ),
