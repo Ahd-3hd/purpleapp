@@ -116,7 +116,6 @@ class _CreateCommentState extends State<CreateComment> {
                 child: Form(
                   child: ListView(
                     children: [
-                      Text(widget.docid),
                       Container(
                         child: TextFormField(
                           minLines: 5,
@@ -144,7 +143,7 @@ class _CreateCommentState extends State<CreateComment> {
                                 Navigator.of(context).pop();
                               },
                               color: Colors.cyan,
-                            ),
+                            )
                           ],
                         ),
                       ),

@@ -40,7 +40,7 @@ class DatabaseSerivce {
         .document(docid)
         .get()
         .then((value) => value.data['comments']);
-    comments.add({'comment': comment, 'userid': userid});
+    comments.add({'comment': comment, 'username': await getUser(userid)});
     return await postsCollection
         .document(docid)
         .updateData({'comments': comments});
@@ -49,9 +49,18 @@ class DatabaseSerivce {
   // update user data
   Future updateUserData(String phoneNumber, String whatsAppNumber) async {
     return await usersCollection.document(uid).setData({
+      'username': 'this is a test username',
       'phoneNumber': phoneNumber,
       'whatsAppNumber': whatsAppNumber,
     });
+  }
+
+  Future getUser(String useruid) async {
+    dynamic username = await usersCollection
+        .document(useruid)
+        .get()
+        .then((value) => value.data['username']);
+    return username;
   }
 
   // get posts from database

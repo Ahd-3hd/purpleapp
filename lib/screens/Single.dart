@@ -265,22 +265,22 @@ class Comment extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.phone,
                             ),
-                            Text(singleComment['userid'][0]),
+                            Flexible(child: Text(singleComment['username'])),
                           ],
                         ),
                       ),
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: Text(singleComment['comment']),
                       ),
                     ],
@@ -291,34 +291,3 @@ class Comment extends StatelessWidget {
             .toList());
   }
 }
-
-// <Widget>[
-//         Card(
-//           color: Colors.grey[300],
-//           child: Padding(
-//             padding: const EdgeInsets.all(10.0),
-//             child: Row(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: <Widget>[
-//                 Expanded(
-//                   flex: 1,
-//                   child: Row(
-//                     crossAxisAlignment: CrossAxisAlignment.center,
-//                     children: [
-//                       Icon(
-//                         Icons.phone,
-//                       ),
-//                       Text('username'),
-//                     ],
-//                   ),
-//                 ),
-//                 Expanded(
-//                   flex: 3,
-//                   child: Text(
-//                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed turpis lectus, hendrerit a dignissim ac, pulvinar'),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
