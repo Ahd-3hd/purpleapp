@@ -58,6 +58,24 @@ class DatabaseSerivce {
     });
   }
 
+  // update user profile data
+  Future updateUserProfileData(
+      String phoneNumber,
+      String whatsAppNumber,
+      String username,
+      String email,
+      String whatsapp,
+      String location,
+      String useruid) async {
+    return await usersCollection.document(useruid).updateData({
+      'username': username,
+      'phoneNumber': phoneNumber,
+      'whatsAppNumber': whatsAppNumber,
+      'location': location,
+      'email': email,
+    });
+  }
+
   Future getUser(String useruid) async {
     dynamic username = await usersCollection
         .document(useruid)
