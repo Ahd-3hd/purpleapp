@@ -42,7 +42,7 @@ class RouteGenerator {
         );
       case '/profile':
         return MaterialPageRoute(
-          builder: (_) => Profile(),
+          builder: (_) => Profile(data: args),
         );
       case '/create':
         return MaterialPageRoute(

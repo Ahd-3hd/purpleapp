@@ -49,9 +49,12 @@ class DatabaseSerivce {
   // update user data
   Future updateUserData(String phoneNumber, String whatsAppNumber) async {
     return await usersCollection.document(uid).setData({
-      'username': 'this is a test username',
+      'username': '',
       'phoneNumber': phoneNumber,
       'whatsAppNumber': whatsAppNumber,
+      'location': '',
+      'email': '',
+      'comments': []
     });
   }
 
@@ -61,6 +64,14 @@ class DatabaseSerivce {
         .get()
         .then((value) => value.data['username']);
     return username;
+  }
+
+  Future getUserForProfile(String useruid) async {
+    dynamic userData = await usersCollection
+        .document(useruid)
+        .get()
+        .then((value) => value.data);
+    return userData;
   }
 
   // get posts from database

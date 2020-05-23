@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:purple/services/database.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
+  final dynamic data;
+  Profile({this.data});
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  dynamic userData;
+
+  void getUserData() async {
+    dynamic user = await DatabaseSerivce().getUserForProfile(widget.data.uid);
+    setState(() {
+      userData = user;
+    });
+    print(userData);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,28 +62,15 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Positioned(
-                    right: 0,
-                    top: 7,
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(0),
-                      color: Colors.transparent,
-                      elevation: 0,
-                      onPressed: () {},
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                    ),
-                  ),
-                  Positioned(
                     left: 0,
                     top: 7,
                     child: RaisedButton(
                       padding: EdgeInsets.all(0),
                       color: Colors.transparent,
                       elevation: 0,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Icon(
                         Icons.arrow_back,
                         color: Colors.white,
@@ -97,21 +104,21 @@ class _ProfileState extends State<Profile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Name: User Name',
+                          'Name: ${userData['username']}',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'Location: Istanbul',
+                          'Location: ${userData['location']}',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'Email: email@email.com',
+                          'Email: ${userData['email']}',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -125,7 +132,15 @@ class _ProfileState extends State<Profile> {
                     children: <Widget>[
                       RaisedButton(
                         color: const Color(0xffB513A4),
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (await canLaunch(
+                              "whatsapp://send?phone=${userData['whatsAppNumber']}")) {
+                            await launch(
+                                "whatsapp://send?phone=${userData['whatsAppNumber']}");
+                          } else {
+                            throw 'Could not launch ${userData['whatsAppNumber']}';
+                          }
+                        },
                         child: Row(
                           children: <Widget>[
                             Icon(
@@ -144,7 +159,14 @@ class _ProfileState extends State<Profile> {
                       ),
                       RaisedButton(
                         color: const Color(0xffB513A4),
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (await canLaunch(
+                              "tel:${userData['phoneNumber']}")) {
+                            await launch("tel:${userData['phoneNumber']}");
+                          } else {
+                            throw 'Could not launch ${userData['phoneNumber']}';
+                          }
+                        },
                         child: Row(
                           children: <Widget>[
                             Icon(
@@ -206,7 +228,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  Comment(),
+                  Comment(commentData: userData['comments']),
                 ],
               ),
             )
@@ -218,39 +240,43 @@ class _ProfileState extends State<Profile> {
 }
 
 class Comment extends StatelessWidget {
-  const Comment({
-    Key key,
-  }) : super(key: key);
+  final dynamic commentData;
+  const Comment({Key key, this.commentData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[300],
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.phone,
+    print(commentData);
+    return Column(
+        children: commentData
+            .map<Widget>(
+              (singleComment) => Card(
+                color: Colors.grey[300],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.phone,
+                            ),
+                            Flexible(child: Text(singleComment['username'])),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Text(singleComment['comment']),
+                      ),
+                    ],
                   ),
-                  Text('username'),
-                ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed turpis lectus, hendrerit a dignissim ac, pulvinar'),
-            ),
-          ],
-        ),
-      ),
-    );
+            )
+            .toList());
   }
 }

@@ -18,6 +18,7 @@ class _FeedState extends State<Feed> {
   String keyword;
   @override
   Widget build(BuildContext context) {
+    dynamic user = Provider.of<User>(context);
     if (Provider.of<User>(context) != null) {
       return StreamProvider<QuerySnapshot>.value(
         value: DatabaseSerivce(categoryValue: categoryValue, keyword: keyword)
@@ -70,7 +71,10 @@ class _FeedState extends State<Feed> {
                           padding: EdgeInsets.all(0),
                           color: Colors.transparent,
                           elevation: 0,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed('/profile', arguments: user);
+                          },
                           child: Icon(
                             Icons.person,
                             color: Colors.white,
