@@ -4,7 +4,9 @@ import 'package:purple/screens/create_post.dart';
 import 'package:purple/screens/feed.dart';
 import 'package:purple/screens/login.dart';
 import 'package:purple/screens/login_signup.dart';
+import 'package:purple/screens/other_user_profile.dart';
 import 'package:purple/screens/profile.dart';
+import 'package:purple/screens/profile_comment.dart';
 import 'package:purple/screens/signup.dart';
 import 'package:purple/screens/user_posts.dart';
 import 'package:purple/screens/welcome.dart';
@@ -44,6 +46,10 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => Profile(data: args),
         );
+      case '/otheruser':
+        return MaterialPageRoute(
+          builder: (_) => OtherUserProfile(data: args),
+        );
       case '/create':
         return MaterialPageRoute(
           builder: (_) => CreatePost(),
@@ -55,6 +61,10 @@ class RouteGenerator {
       case '/comment':
         return MaterialPageRoute(
           builder: (_) => CreateComment(docid: args),
+        );
+      case '/profilecomment':
+        return MaterialPageRoute(
+          builder: (_) => ProfileComment(docid: args),
         );
       default:
         return _errorRoute();

@@ -104,6 +104,13 @@ class _SingleState extends State<Single> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/otheruser',
+                                arguments: widget.data[0]['userid']);
+                          },
+                          child: Text('View Profile'),
+                        ),
                         Text(
                           widget.data[0]['title'],
                           style: TextStyle(

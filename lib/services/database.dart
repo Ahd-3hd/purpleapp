@@ -46,6 +46,17 @@ class DatabaseSerivce {
         .updateData({'comments': comments});
   }
 
+  Future profileComment(String docid, String comment, String useruid) async {
+    List comments = await usersCollection
+        .document(docid)
+        .get()
+        .then((value) => value.data['comments']);
+    comments.add({'comment': comment, 'username': await getUser(useruid)});
+    return await usersCollection
+        .document(docid)
+        .updateData({'comments': comments});
+  }
+
   // update user data
   Future updateUserData(String phoneNumber, String whatsAppNumber) async {
     return await usersCollection.document(uid).setData({
