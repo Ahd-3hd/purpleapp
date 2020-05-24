@@ -30,9 +30,6 @@ class _OtherUserProfileState extends State<OtherUserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        getUser();
-      }),
       body: Container(
         color: Colors.white,
         child: Column(
