@@ -341,26 +341,6 @@ class ItemCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        RaisedButton(
-                          color: Colors.transparent,
-                          elevation: 0,
-                          onPressed: () {},
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.rate_review,
-                                color: Colors.grey[800],
-                              ),
-                              SizedBox(width: 3),
-                              Text(
-                                'Reviews',
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     )
                   ],
