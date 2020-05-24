@@ -208,16 +208,22 @@ class _ProfileState extends State<Profile> {
                             ),
                             RaisedButton(
                               color: const Color(0xffB513A4),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  editMode = true;
+                                });
+                              },
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Icon(
-                                    Icons.add_comment,
+                                    Icons.edit,
                                     color: Colors.white,
                                   ),
                                   SizedBox(width: 10),
                                   Text(
-                                    'Comment',
+                                    'Edit Profile',
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -225,36 +231,26 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
+                            // RaisedButton(
+                            //   color: const Color(0xffB513A4),
+                            //   onPressed: () {},
+                            //   child: Row(
+                            //     children: <Widget>[
+                            //       Icon(
+                            //         Icons.add_comment,
+                            //         color: Colors.white,
+                            //       ),
+                            //       SizedBox(width: 10),
+                            //       Text(
+                            //         'Comment',
+                            //         style: TextStyle(
+                            //           color: Colors.white,
+                            //         ),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
                           ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 100),
-                          child: RaisedButton(
-                            color: const Color(0xffB513A4),
-                            onPressed: () {
-                              setState(() {
-                                editMode = true;
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Edit Profile',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
                         ),
                         Comment(commentData: userData['comments']),
                       ],
