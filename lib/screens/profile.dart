@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:purple/services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart'; // For File Upload To Firestore
+import 'package:image_picker/image_picker.dart'; // For Image Picker
+import 'package:path/path.dart' as Path;
 
 class Profile extends StatefulWidget {
   final dynamic data;
@@ -17,6 +21,26 @@ class _ProfileState extends State<Profile> {
   String userPhoneNumber;
   String userWhatsAppNumber;
   String userLocation;
+  File _image;
+  Future chooseFile() async {
+    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
+      setState(() {
+        _image = image;
+      });
+    });
+  }
+
+  Future uploadFile() async {
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('userimg/${Path.basename(_image.path)}');
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    storageReference.getDownloadURL().then((fileURL) async {
+      await DatabaseSerivce().updateUserProfileImage(widget.data.uid, fileURL);
+    });
+  }
+
   void getUserData() async {
     dynamic user = await DatabaseSerivce().getUserForProfile(widget.data.uid);
     setState(() {
@@ -115,7 +139,7 @@ class _ProfileState extends State<Profile> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage('assets/headerbg.jpg'),
+                                image: NetworkImage(userData['avatar']),
                               ),
                             ),
                           ),
@@ -322,6 +346,25 @@ class _ProfileState extends State<Profile> {
                               });
                             },
                           ),
+                          Expanded(
+                            child: Column(
+                              children: <Widget>[
+                                RaisedButton(
+                                  child: Text('Choose Image'),
+                                  onPressed: () async {
+                                    await chooseFile();
+                                    await uploadFile();
+                                  },
+                                  color: Colors.cyan,
+                                ),
+                                Expanded(
+                                  child: _image != null
+                                      ? (Image.asset(_image.path))
+                                      : Text('Choose Image'),
+                                ),
+                              ],
+                            ),
+                          ),
                           RaisedButton(
                             onPressed: () {
                               updateUserProfileData();
@@ -362,7 +405,7 @@ class Comment extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.phone,
+                              Icons.person,
                             ),
                             Flexible(child: Text(singleComment['username'])),
                           ],

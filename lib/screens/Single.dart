@@ -275,12 +275,12 @@ class Comment extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Expanded(
-                        flex: 2,
+                        flex: 1,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.phone,
+                              Icons.person,
                             ),
                             Flexible(child: Text(singleComment['username'])),
                           ],

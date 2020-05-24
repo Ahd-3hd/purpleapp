@@ -61,12 +61,14 @@ class DatabaseSerivce {
   // update user data
   Future updateUserData(String phoneNumber, String whatsAppNumber) async {
     return await usersCollection.document(uid).setData({
-      'username': '',
+      'username': 'Unknown',
       'phoneNumber': phoneNumber,
       'whatsAppNumber': whatsAppNumber,
-      'location': '',
-      'email': '',
-      'comments': []
+      'location': 'Unknown',
+      'email': 'Unknown',
+      'comments': [],
+      'avatar':
+          'https://firebasestorage.googleapis.com/v0/b/purple-aa6da.appspot.com/o/icon.png?alt=media&token=c4ebe948-7e46-4f12-b625-f0b153bc9f3a'
     });
   }
 
@@ -86,6 +88,12 @@ class DatabaseSerivce {
       'location': location,
       'email': email,
     });
+  }
+
+  Future updateUserProfileImage(String useruid, String imgurl) async {
+    return await usersCollection
+        .document(useruid)
+        .updateData({'avatar': imgurl});
   }
 
   Future getUser(String useruid) async {
