@@ -46,14 +46,15 @@ class DatabaseSerivce {
         .updateData({'comments': comments});
   }
 
-  Future profileComment(String docid, String comment, String useruid) async {
+  Future profileComment(
+      String commentoruid, String comment, String useruid) async {
     List comments = await usersCollection
-        .document(docid)
+        .document(useruid)
         .get()
         .then((value) => value.data['comments']);
-    comments.add({'comment': comment, 'username': await getUser(useruid)});
+    comments.add({'comment': comment, 'username': await getUser(commentoruid)});
     return await usersCollection
-        .document(docid)
+        .document(useruid)
         .updateData({'comments': comments});
   }
 

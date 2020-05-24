@@ -138,8 +138,9 @@ class _ProfileCommentState extends State<ProfileComment> {
                             RaisedButton(
                               child: Text('Post'),
                               onPressed: () async {
+                                print(user.uid);
                                 await DatabaseSerivce().profileComment(
-                                    user.uid, comment, user.uid);
+                                    user.uid, comment, widget.docid);
                                 Navigator.of(context).pop();
                               },
                               color: Colors.cyan,

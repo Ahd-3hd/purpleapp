@@ -23,7 +23,6 @@ class _OtherUserProfileState extends State<OtherUserProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUser();
   }
