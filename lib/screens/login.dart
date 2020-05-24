@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:purple/models/user.dart';
-import 'package:purple/screens/feed.dart';
 import 'package:purple/services/auth.dart';
 
 class Login extends StatefulWidget {
@@ -17,7 +14,6 @@ class _LoginState extends State<Login> {
   String error;
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
