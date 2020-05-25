@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/ohscreens/login.dart';
 
 class AuthenticateScreen extends StatefulWidget {
   @override
@@ -166,7 +167,10 @@ class _AuthenticateScreenState extends State<AuthenticateScreen>
                         ),
                       ),
                       FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Login()));
+                        },
                         child: Text(
                           'LOGIN',
                           style: TextStyle(color: Colors.white),
