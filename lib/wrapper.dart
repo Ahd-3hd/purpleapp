@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohscreens/authenticate.dart';
+import 'package:purple/ohscreens/home.dart';
 
 import 'models/user.dart';
 
@@ -14,7 +15,7 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     if (user != null) {
-      return Text('logged in');
+      return Home();
     } else {
       return AuthenticateScreen();
     }

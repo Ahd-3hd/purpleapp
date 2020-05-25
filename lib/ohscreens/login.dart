@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:purple/ohservices/auth.dart';
+import 'package:purple/wrapper.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -6,10 +8,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
-  String error;
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +64,20 @@ class _LoginState extends State<Login> {
                       color: const Color(0xffB513A4),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          print('hi');
+                          dynamic result = await _auth
+                              .signInWithEmailAndPassword(email, password);
+
+                          if (result == null) {
+                            setState(() {
+                              error =
+                                  'error signing in, check your credentials';
+                            });
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Wrapper()));
+                          }
                         }
                       },
                       child: Text(
@@ -69,6 +85,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
+                    Text(error)
                   ],
                 ),
               ),
