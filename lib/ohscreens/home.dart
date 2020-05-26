@@ -6,6 +6,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String categoryValue;
+  String keyword;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,63 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButton<String>(
+                      itemHeight: 63,
+                      hint: Text('Category'),
+                      value: categoryValue,
+                      items: <String>['Any', 'Product', 'Service', 'Job']
+                          .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (_) {
+                        if (_ != 'Any') {
+                          setState(() {
+                            categoryValue = _;
+                          });
+                        } else {
+                          setState(() {
+                            categoryValue = null;
+                          });
+                        }
+
+                        print(_);
+                        print(categoryValue);
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search..',
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          keyword = val;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
