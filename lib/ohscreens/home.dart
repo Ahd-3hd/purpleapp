@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohcomponents/item_card.dart';
 import 'package:purple/ohservices/database.dart';
+import 'package:purple/ohservices/auth.dart';
+import 'package:purple/wrapper.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final AuthService _auth = AuthService();
   String categoryValue;
   String keyword;
   @override
@@ -20,6 +23,14 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           actions: <Widget>[
+            FlatButton(
+                onPressed: () async {
+                  if (await _auth.signOut()) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Wrapper()));
+                  }
+                },
+                child: Text('sign out', style: TextStyle(color: Colors.white))),
             IconButton(
               icon: Icon(
                 Icons.person,
