@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohcomponents/item_card.dart';
+import 'package:purple/ohscreens/create_post.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/wrapper.dart';
@@ -21,6 +22,15 @@ class _HomeState extends State<Home> {
       value: DatabaseSerivce(categoryValue: categoryValue, keyword: keyword)
           .thePosts,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => CreatePost()));
+          },
+          child: Icon(
+            Icons.create,
+          ),
+        ),
         appBar: AppBar(
           actions: <Widget>[
             FlatButton(
