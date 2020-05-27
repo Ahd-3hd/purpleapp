@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:purple/ohscreens/authenticate.dart';
 import 'package:purple/ohscreens/home.dart';
 
-import 'models/user.dart';
+import 'package:purple/ohmodels/user.dart';
 
 class Wrapper extends StatefulWidget {
   @override

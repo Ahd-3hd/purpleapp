@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:purple/ohmodels/user.dart';
+import 'package:purple/ohservices/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,6 +32,7 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+      await DatabaseSerivce().updateUserData(user.uid, '', '', user.email);
       return _userFromFirebaseUser(user);
     } catch (e) {
       e.toString();

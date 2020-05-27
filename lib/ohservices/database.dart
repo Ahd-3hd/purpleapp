@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:purple/ohservices/auth.dart';
 
 class DatabaseSerivce {
-  final String uid;
   //collection reference
   String categoryValue;
   String keyword;
-  DatabaseSerivce({this.categoryValue, this.keyword, this.uid});
+  DatabaseSerivce({this.categoryValue, this.keyword});
   final CollectionReference postsCollection =
       Firestore.instance.collection('posts');
+  final CollectionReference usersCollection =
+      Firestore.instance.collection('users');
   // get posts from database
   Stream<QuerySnapshot> get thePosts {
     if (categoryValue != null && keyword != null && keyword.isNotEmpty) {
@@ -29,5 +31,60 @@ class DatabaseSerivce {
     } else {
       return postsCollection.orderBy('time', descending: true).snapshots();
     }
+  }
+
+  // get user data
+
+  Future getUser(String useruid) async {
+    dynamic userData = await usersCollection
+        .document(useruid)
+        .get()
+        .then((value) => value.data);
+    print(userData);
+    return userData;
+  }
+
+  // create post
+
+  Future createPost(
+      String userid,
+      String title,
+      String desc,
+      String category,
+      List keywords,
+      String imageurl,
+      String location,
+      String price,
+      String phoneNumber,
+      String whatsAppNumber) async {
+    return await postsCollection.document().setData({
+      'userid': userid,
+      'title': title,
+      'desc': desc,
+      'category': category,
+      'keyword': keywords,
+      'imgurl': imageurl,
+      'location': location,
+      'price': price,
+      'time': Timestamp.now(),
+      'phoneNumber': phoneNumber,
+      'whatsAppNumber': whatsAppNumber,
+      'comments': []
+    });
+  }
+
+  // update user data on sign up
+
+  Future updateUserData(String userid, String phoneNumber,
+      String whatsAppNumber, String userEmail) async {
+    return await usersCollection.document(userid).setData({
+      'username': 'Unknown',
+      'phoneNumber': phoneNumber,
+      'whatsAppNumber': whatsAppNumber,
+      'location': 'Unknown',
+      'email': userEmail,
+      'comments': [],
+      'avatar': 'default.jpg'
+    });
   }
 }
