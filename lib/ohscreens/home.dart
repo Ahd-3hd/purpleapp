@@ -133,7 +133,6 @@ class _PostsListState extends State<PostsList> {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<QuerySnapshot>(context).documents;
-    print(posts[0].data);
     if (posts != null) {
       return ListView(
         children:
