@@ -4,6 +4,10 @@ import 'package:purple/ohmodels/user.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart'; // For File Upload To Firestore
+import 'package:image_picker/image_picker.dart'; // For Image Picker
+import 'package:path/path.dart' as Path;
 
 class CurrentUserProfile extends StatefulWidget {
   @override
@@ -19,6 +23,23 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
   String location;
   String avatar =
       'https://firebasestorage.googleapis.com/v0/b/purple-aa6da.appspot.com/o/icon.png?alt=media&token=704754b4-1cca-48af-a307-ee2bd3eccfef';
+  File _image;
+  Future chooseAndUploadFile(uid) async {
+    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
+      setState(() {
+        _image = image;
+      });
+    });
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('userimg/${Path.basename(_image.path)}');
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    storageReference.getDownloadURL().then((fileURL) async {
+      await DatabaseSerivce().updateUserProfileImage(uid, fileURL);
+    });
+  }
+
   void getUserData(userid) async {
     Map result = await DatabaseSerivce().getUser(userid);
     setState(() {
@@ -93,7 +114,9 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                     child: Container(
                       child: IconButton(
                         icon: Icon(Icons.edit),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await chooseAndUploadFile(user.uid);
+                        },
                       ),
                       decoration: BoxDecoration(
                         color: const Color(0xff33333355),

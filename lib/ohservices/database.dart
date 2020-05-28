@@ -88,6 +88,7 @@ class DatabaseSerivce {
     });
   }
 
+// add comment to a post
   Future commentOnPost(String userid, String docid, String commentText) async {
     List comments = await postsCollection
         .document(docid)
@@ -97,5 +98,12 @@ class DatabaseSerivce {
     return await postsCollection
         .document(docid)
         .updateData({'comments': comments});
+  }
+
+  // update a users avatar image
+  Future updateUserProfileImage(String useruid, String imgurl) async {
+    return await usersCollection
+        .document(useruid)
+        .updateData({'avatar': imgurl});
   }
 }
