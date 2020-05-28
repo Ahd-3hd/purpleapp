@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:purple/ohmodels/user.dart';
 import 'package:purple/ohscreens/create_comment.dart';
+import 'package:purple/ohscreens/current_user_profile.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
@@ -33,6 +36,8 @@ class _SingleState extends State<Single> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -49,7 +54,10 @@ class _SingleState extends State<Single> {
               Icons.person,
               size: 35,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CurrentUserProfile(userid: user.uid)));
+            },
           ),
         ],
         title: Text('Purple'),

@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart'; // For Image Picker
 import 'package:path/path.dart' as Path;
 import 'package:provider/provider.dart';
 import 'package:purple/ohmodels/user.dart';
+import 'package:purple/ohscreens/current_user_profile.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
@@ -82,7 +83,10 @@ class _CreatePostState extends State<CreatePost> {
               Icons.person,
               size: 35,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CurrentUserProfile(userid: user.uid)));
+            },
           ),
         ],
         title: Text('New Post'),
