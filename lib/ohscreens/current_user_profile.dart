@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:purple/ohmodels/user.dart';
 import 'package:purple/ohscreens/home.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
