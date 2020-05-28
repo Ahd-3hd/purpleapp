@@ -17,6 +17,7 @@ class CurrentUserProfile extends StatefulWidget {
 
 class _CurrentUserProfileState extends State<CurrentUserProfile> {
   final AuthService _auth = AuthService();
+  List comments;
   String username;
   String email;
   String phoneNumber;
@@ -50,6 +51,7 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
       phoneNumber = result['phoneNumber'];
       whatsAppNumber = result['whatsAppNumber'];
       avatar = result['avatar'];
+      comments = result['comments'];
     });
   }
 
@@ -289,6 +291,73 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                   ),
                 ),
               ),
+            ),
+            comments != null
+                ? Column(
+                    children: comments.map<Widget>((single) {
+                      return Comment(
+                        comment: single,
+                      );
+                    }).toList(),
+                    // [
+                    //   Comment(
+                    //     comment: widget.data['comments'][0],
+                    //   ),
+                    // ]
+                  )
+                : Text('No Comments'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Comment extends StatefulWidget {
+  final Map comment;
+  Comment({this.comment});
+
+  @override
+  _CommentState createState() => _CommentState();
+}
+
+class _CommentState extends State<Comment> {
+  String commentorUsername;
+  void getCommentorData() async {
+    dynamic result = await DatabaseSerivce().getUser(widget.comment['userid']);
+
+    setState(() {
+      commentorUsername = result['username'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCommentorData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.person,
+                  color: Colors.grey[850],
+                ),
+                Text(commentorUsername),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Flexible(
+              child: Text(widget.comment['comment']),
             )
           ],
         ),
