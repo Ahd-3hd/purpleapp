@@ -104,6 +104,15 @@ class _CreatePostState extends State<CreatePost> {
         padding: const EdgeInsets.all(10.0),
         child: ListView(
           children: [
+            Center(
+              child: Text(
+                'Make sure to edit your profile information otherwise people will not be able to reach you',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
             TextFormField(
               decoration: InputDecoration(
                 hintText: 'Title',
