@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:purple/ohmodels/user.dart';
 import 'package:purple/ohservices/auth.dart';
+import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
 
 class CurrentUserProfile extends StatefulWidget {
@@ -13,9 +16,25 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
   String email;
   String phoneNumber;
   String whatsAppNumber;
+  String location;
+  String avatar =
+      'https://firebasestorage.googleapis.com/v0/b/purple-aa6da.appspot.com/o/icon.png?alt=media&token=704754b4-1cca-48af-a307-ee2bd3eccfef';
+  void getUserData(userid) async {
+    Map result = await DatabaseSerivce().getUser(userid);
+    setState(() {
+      username = result['username'];
+      email = result['email'];
+      phoneNumber = result['phoneNumber'];
+      whatsAppNumber = result['whatsAppNumber'];
+      location = result['location'];
+      avatar = result['avatar'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    getUserData(user.uid);
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -64,7 +83,7 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/headerbg.jpg'),
+                        image: NetworkImage(avatar),
                       ),
                     ),
                   ),
@@ -90,10 +109,11 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             ),
             Center(
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'username',
+                  labelText: username == 'Unknown' || username.isEmpty
+                      ? 'Username'
+                      : username,
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -107,10 +127,11 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             ),
             Center(
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'user email',
+                  labelText: email == 'Unknown' || email.isEmpty
+                      ? 'Email Address'
+                      : email,
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -124,10 +145,29 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             ),
             Center(
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'phone Number',
+                  labelText: location == 'Unknown' || location.isEmpty
+                      ? 'location'
+                      : location,
+                ),
+                onChanged: (val) {
+                  setState(() {
+                    location = val;
+                  });
+                },
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: phoneNumber == 'Unknown' || phoneNumber.isEmpty
+                      ? 'Phone Number'
+                      : phoneNumber,
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -141,10 +181,12 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             ),
             Center(
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'WhatsApp Number',
+                  labelText:
+                      whatsAppNumber == 'Unknown' || whatsAppNumber.isEmpty
+                          ? 'Phone Number'
+                          : whatsAppNumber,
                 ),
                 onChanged: (val) {
                   setState(() {

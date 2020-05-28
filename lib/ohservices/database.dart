@@ -83,7 +83,8 @@ class DatabaseSerivce {
       'location': 'Unknown',
       'email': userEmail,
       'comments': [],
-      'avatar': 'default.jpg'
+      'avatar':
+          'https://firebasestorage.googleapis.com/v0/b/purple-aa6da.appspot.com/o/icon.png?alt=media&token=704754b4-1cca-48af-a307-ee2bd3eccfef'
     });
   }
 
