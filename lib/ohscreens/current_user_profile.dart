@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohmodels/user.dart';
+import 'package:purple/ohscreens/home.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
@@ -73,16 +74,6 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                 }
               },
               child: Text('sign out', style: TextStyle(color: Colors.white))),
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              size: 35,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CurrentUserProfile()));
-            },
-          ),
         ],
         title: Text('Purple'),
         elevation: 7,
@@ -277,6 +268,11 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                         email,
                         username,
                         location);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    );
                   },
                   child: Row(
                     children: <Widget>[
