@@ -150,7 +150,6 @@ class _CreatePostState extends State<CreatePost> {
                   setState(() {
                     postCategory = _;
                   });
-                  print(postCategory);
                 },
               ),
             ),

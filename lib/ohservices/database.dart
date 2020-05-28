@@ -56,7 +56,7 @@ class DatabaseSerivce {
       String price,
       String phoneNumber,
       String whatsAppNumber) async {
-    return await postsCollection.document().setData({
+    await postsCollection.document().setData({
       'userid': userid,
       'title': title,
       'desc': desc,
@@ -85,5 +85,16 @@ class DatabaseSerivce {
       'comments': [],
       'avatar': 'default.jpg'
     });
+  }
+
+  Future commentOnPost(String userid, String docid, String commentText) async {
+    List comments = await postsCollection
+        .document(docid)
+        .get()
+        .then((value) => value.data['comments']);
+    comments.insert(0, {'comment': commentText, 'userid': userid});
+    return await postsCollection
+        .document(docid)
+        .updateData({'comments': comments});
   }
 }

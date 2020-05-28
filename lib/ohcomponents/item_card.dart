@@ -4,7 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ItemCard extends StatefulWidget {
   final Map itemData;
-  ItemCard({this.itemData});
+  final String itemDocId;
+  ItemCard({this.itemData, this.itemDocId});
   @override
   _ItemCardState createState() => _ItemCardState();
 }
@@ -19,6 +20,7 @@ class _ItemCardState extends State<ItemCard> {
             MaterialPageRoute(
                 builder: (context) => Single(
                       data: widget.itemData,
+                      itemDocId: widget.itemDocId,
                     )));
       },
       child: Card(

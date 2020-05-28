@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/ohscreens/create_comment.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
@@ -6,7 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Single extends StatefulWidget {
   final data;
-  Single({this.data});
+  final itemDocId;
+  Single({this.data, this.itemDocId});
   @override
   _SingleState createState() => _SingleState();
 }
@@ -207,7 +209,15 @@ class _SingleState extends State<Single> {
                         ),
                       ),
                       FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => CreateComment(
+                                itemDocId: widget.itemDocId,
+                              ),
+                            ),
+                          );
+                        },
                         child: Row(
                           children: <Widget>[
                             Icon(
@@ -277,7 +287,6 @@ class _CommentState extends State<Comment> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.comment);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),

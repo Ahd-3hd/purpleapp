@@ -94,9 +94,6 @@ class _HomeState extends State<Home> {
                               categoryValue = null;
                             });
                           }
-
-                          print(_);
-                          print(categoryValue);
                         },
                       ),
                     ),
@@ -145,8 +142,12 @@ class _PostsListState extends State<PostsList> {
     final posts = Provider.of<QuerySnapshot>(context).documents;
     if (posts != null) {
       return ListView(
-        children:
-            posts.map<Widget>((post) => ItemCard(itemData: post.data)).toList(),
+        children: posts
+            .map<Widget>((post) => ItemCard(
+                  itemData: post.data,
+                  itemDocId: post.documentID,
+                ))
+            .toList(),
       );
     } else {
       return Center(
