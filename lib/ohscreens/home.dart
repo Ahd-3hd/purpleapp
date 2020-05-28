@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohcomponents/item_card.dart';
+import 'package:purple/ohmodels/user.dart';
 import 'package:purple/ohscreens/create_post.dart';
 import 'package:purple/ohscreens/current_user_profile.dart';
 import 'package:purple/ohservices/database.dart';
@@ -19,6 +20,7 @@ class _HomeState extends State<Home> {
   String keyword;
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return StreamProvider<QuerySnapshot>.value(
       value: DatabaseSerivce(categoryValue: categoryValue, keyword: keyword)
           .thePosts,
@@ -49,7 +51,8 @@ class _HomeState extends State<Home> {
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CurrentUserProfile()));
+                    builder: (context) =>
+                        CurrentUserProfile(userid: user.uid)));
               },
             ),
           ],

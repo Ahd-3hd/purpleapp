@@ -73,7 +73,6 @@ class DatabaseSerivce {
   }
 
   // update user data on sign up
-
   Future updateUserData(String userid, String phoneNumber,
       String whatsAppNumber, String userEmail) async {
     return await usersCollection.document(userid).setData({
@@ -85,6 +84,24 @@ class DatabaseSerivce {
       'comments': [],
       'avatar':
           'https://firebasestorage.googleapis.com/v0/b/purple-aa6da.appspot.com/o/icon.png?alt=media&token=704754b4-1cca-48af-a307-ee2bd3eccfef'
+    });
+  }
+
+  // update user data from editing profile
+
+  Future updateUserDataFromProfile(
+      String userid,
+      String phoneNumber,
+      String whatsAppNumber,
+      String userEmail,
+      String username,
+      String location) async {
+    return await usersCollection.document(userid).updateData({
+      'username': username,
+      'phoneNumber': phoneNumber,
+      'whatsAppNumber': whatsAppNumber,
+      'location': location,
+      'email': userEmail,
     });
   }
 

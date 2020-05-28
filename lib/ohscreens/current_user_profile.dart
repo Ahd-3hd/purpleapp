@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart'; // For Image Picker
 import 'package:path/path.dart' as Path;
 
 class CurrentUserProfile extends StatefulWidget {
+  final String userid;
+  CurrentUserProfile({this.userid});
   @override
   _CurrentUserProfileState createState() => _CurrentUserProfileState();
 }
@@ -36,26 +38,30 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
     StorageUploadTask uploadTask = storageReference.putFile(_image);
     await uploadTask.onComplete;
     storageReference.getDownloadURL().then((fileURL) async {
-      await DatabaseSerivce().updateUserProfileImage(uid, fileURL);
+      return await DatabaseSerivce().updateUserProfileImage(uid, fileURL);
     });
   }
 
-  void getUserData(userid) async {
-    Map result = await DatabaseSerivce().getUser(userid);
+  void getUserData() async {
+    Map result = await DatabaseSerivce().getUser(widget.userid);
     setState(() {
       username = result['username'];
       email = result['email'];
+      location = result['location'];
       phoneNumber = result['phoneNumber'];
       whatsAppNumber = result['whatsAppNumber'];
-      location = result['location'];
       avatar = result['avatar'];
     });
   }
 
   @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
-    getUserData(user.uid);
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -115,7 +121,7 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                       child: IconButton(
                         icon: Icon(Icons.edit),
                         onPressed: () async {
-                          await chooseAndUploadFile(user.uid);
+                          await chooseAndUploadFile(widget.userid);
                         },
                       ),
                       decoration: BoxDecoration(
@@ -130,13 +136,21 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             SizedBox(
               height: 20,
             ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'username',
+                style: TextStyle(color: Colors.grey[850]),
+              ),
+            ),
             Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: username == 'Unknown' || username.isEmpty
-                      ? 'Username'
-                      : username,
+                  hintText:
+                      username != null && username.isNotEmpty && username != ''
+                          ? username
+                          : 'username',
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -148,13 +162,20 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             SizedBox(
               height: 10,
             ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'Email',
+                style: TextStyle(color: Colors.grey[850]),
+              ),
+            ),
             Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: email == 'Unknown' || email.isEmpty
-                      ? 'Email Address'
-                      : email,
+                  hintText: email != null && email.isNotEmpty && email != ''
+                      ? email
+                      : 'email address',
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -166,13 +187,21 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             SizedBox(
               height: 10,
             ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'Location',
+                style: TextStyle(color: Colors.grey[850]),
+              ),
+            ),
             Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: location == 'Unknown' || location.isEmpty
-                      ? 'location'
-                      : location,
+                  hintText:
+                      location != null && location.isNotEmpty && location != ''
+                          ? location
+                          : 'Location',
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -184,13 +213,22 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             SizedBox(
               height: 10,
             ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'Phone No.',
+                style: TextStyle(color: Colors.grey[850]),
+              ),
+            ),
             Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: phoneNumber == 'Unknown' || phoneNumber.isEmpty
-                      ? 'Phone Number'
-                      : phoneNumber,
+                  hintText: phoneNumber != null &&
+                          phoneNumber.isNotEmpty &&
+                          phoneNumber != ''
+                      ? phoneNumber
+                      : 'Phone No.',
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -202,14 +240,22 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
             SizedBox(
               height: 10,
             ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                'Whatsapp No.',
+                style: TextStyle(color: Colors.grey[850]),
+              ),
+            ),
             Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText:
-                      whatsAppNumber == 'Unknown' || whatsAppNumber.isEmpty
-                          ? 'Phone Number'
-                          : whatsAppNumber,
+                  hintText: whatsAppNumber != null &&
+                          whatsAppNumber.isNotEmpty &&
+                          whatsAppNumber != ''
+                      ? whatsAppNumber
+                      : 'Whatsapp No.',
                 ),
                 onChanged: (val) {
                   setState(() {
@@ -223,7 +269,15 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                 width: 100,
                 child: RaisedButton(
                   color: const Color(0xffB513A4),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await DatabaseSerivce().updateUserDataFromProfile(
+                        widget.userid,
+                        phoneNumber,
+                        whatsAppNumber,
+                        email,
+                        username,
+                        location);
+                  },
                   child: Row(
                     children: <Widget>[
                       Icon(
