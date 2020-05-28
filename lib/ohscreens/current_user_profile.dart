@@ -299,11 +299,6 @@ class _CurrentUserProfileState extends State<CurrentUserProfile> {
                         comment: single,
                       );
                     }).toList(),
-                    // [
-                    //   Comment(
-                    //     comment: widget.data['comments'][0],
-                    //   ),
-                    // ]
                   )
                 : Text('No Comments'),
           ],
