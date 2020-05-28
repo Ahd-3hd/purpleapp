@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohmodels/user.dart';
+import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
+import 'package:purple/wrapper.dart';
 
 class CreateComment extends StatefulWidget {
   final itemDocId;
@@ -11,11 +13,43 @@ class CreateComment extends StatefulWidget {
 }
 
 class _CreateCommentState extends State<CreateComment> {
+  final AuthService _auth = AuthService();
+
   String commentText;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          FlatButton(
+              onPressed: () async {
+                if (await _auth.signOut()) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Wrapper()));
+                }
+              },
+              child: Text('sign out', style: TextStyle(color: Colors.white))),
+          IconButton(
+            icon: Icon(
+              Icons.person,
+              size: 35,
+            ),
+            onPressed: () {},
+          ),
+        ],
+        title: Text('New Comment'),
+        elevation: 7,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[const Color(0xff8E2DE2), const Color(0xff4A00E0)],
+            ),
+          ),
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
