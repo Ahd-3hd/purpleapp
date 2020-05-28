@@ -147,7 +147,7 @@ class _PostsListState extends State<PostsList> {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<QuerySnapshot>(context).documents;
-    if (posts != null) {
+    if (posts != null && posts.length > 0) {
       return ListView(
         children: posts
             .map<Widget>((post) => ItemCard(
@@ -158,7 +158,7 @@ class _PostsListState extends State<PostsList> {
       );
     } else {
       return Center(
-        child: Text('Loading'),
+        child: Text('No Results'),
       );
     }
   }
