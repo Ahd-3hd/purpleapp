@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:purple/ohservices/auth.dart';
 
 class DatabaseSerivce {
   //collection reference
@@ -122,5 +121,19 @@ class DatabaseSerivce {
     return await usersCollection
         .document(useruid)
         .updateData({'avatar': imgurl});
+  }
+
+  // Comment on Profile of other users
+
+  Future commentOnProfile(
+      String profileid, String commentText, String commentorid) async {
+    List comments = await usersCollection
+        .document(profileid)
+        .get()
+        .then((value) => value.data['comments']);
+    comments.insert(0, {'comment': commentText, 'userid': commentorid});
+    return await usersCollection
+        .document(profileid)
+        .updateData({'comments': comments});
   }
 }

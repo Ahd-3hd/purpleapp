@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:purple/ohmodels/user.dart';
 import 'package:purple/ohscreens/create_comment.dart';
 import 'package:purple/ohscreens/current_user_profile.dart';
+import 'package:purple/ohscreens/poster_profile.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/wrapper.dart';
@@ -87,7 +88,14 @@ class _SingleState extends State<Single> {
                   ),
                 ),
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PosterProfile(
+                            data: opData, posteruid: widget.data['userid']),
+                      ),
+                    );
+                  },
                   child: Row(
                     children: <Widget>[
                       Icon(
