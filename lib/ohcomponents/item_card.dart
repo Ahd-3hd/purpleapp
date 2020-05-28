@@ -13,7 +13,6 @@ class ItemCard extends StatefulWidget {
 class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
-    print(widget.itemData);
     return InkWell(
       onTap: () {
         Navigator.push(
