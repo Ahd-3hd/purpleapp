@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:purple/models/user.dart';
-import 'package:purple/route_generator.dart';
+import 'package:purple/ohmodels/user.dart';
+// import 'package:purple/route_generator.dart';
 import 'package:flutter/services.dart';
-import 'package:purple/services/auth.dart';
+import 'package:purple/ohservices/auth.dart';
+import 'package:purple/wrapper.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,8 +16,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/feed',
-        onGenerateRoute: RouteGenerator.generateRoute,
+        home: Wrapper(),
       ),
     );
   }
