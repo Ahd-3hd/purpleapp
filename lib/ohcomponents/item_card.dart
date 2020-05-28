@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purple/ohscreens/single.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ItemCard extends StatefulWidget {
@@ -12,7 +13,14 @@ class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Single(
+                      data: widget.itemData,
+                    )));
+      },
       child: Card(
         child: Column(
           children: <Widget>[

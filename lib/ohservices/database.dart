@@ -40,7 +40,6 @@ class DatabaseSerivce {
         .document(useruid)
         .get()
         .then((value) => value.data);
-    print(userData);
     return userData;
   }
 
