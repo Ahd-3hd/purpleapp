@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:purple/ohcomponents/item_card.dart';
 import 'package:purple/ohscreens/create_post.dart';
+import 'package:purple/ohscreens/current_user_profile.dart';
 import 'package:purple/ohservices/database.dart';
 import 'package:purple/ohservices/auth.dart';
 import 'package:purple/wrapper.dart';
@@ -46,7 +47,10 @@ class _HomeState extends State<Home> {
                 Icons.person,
                 size: 35,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CurrentUserProfile()));
+              },
             ),
           ],
           title: Text('Purple'),
